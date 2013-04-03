@@ -1,0 +1,50 @@
+
+.neko_calendar{
+  font-size:80%;
+  font-family:"Verdana", sans-serif;
+}
+
+.neko_calendar table{
+    margin: 10px auto;
+    background: white;
+
+    border-collapse: separate;
+    border-spacing: 5px;
+}
+
+.neko_calendar caption{
+
+}
+
+.neko_calendar th.youbi0{
+    color:red;
+}
+
+.neko_calendar th.youbi6{
+    color:blue;
+}
+
+.neko_calendar td.youbi0{
+    background: #fdd;
+    color:red;
+}
+
+.neko_calendar td.youbi6{
+    background: #def;
+    color:blue;
+}
+
+.neko_calendar td.today{
+    background: #fff7d7;
+    border-color: #fad163;
+}
+
+.neko_calendar td{
+    border:1px solid #ddd;
+    text-align:right;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    padding:2px;
+    margin: 3px;
+}
