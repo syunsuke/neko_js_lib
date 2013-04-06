@@ -14,12 +14,40 @@
   <body>
     <h1>sample</h1>
 
+    <h3>calendar</h3>
     <div id="my_calendar" class="neko_calendar"></div>
+
+    <h3>password</h3>
+    <div id="my_password">
+      <button>button</button>
+      <span></span>
+    </div>
+
 
     <script src="js/nekolinux_module.js"></script>
     <script>
+      //calendar
       var elem = document.getElementById('my_calendar');
       NEKOLINUX.calendar.create(elem);
+
+      //password
+      var pass_div = document.getElementById('my_password');
+      var my_buttons = pass_div.getElementsByTagName("button");
+      var my_spans = pass_div.getElementsByTagName("span");
+      var mypass = NEKOLINUX.utils.password;
+
+      var length = 50;
+      var str = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+      mypass.length = length;
+      mypass.set_use_char(str);
+
+      my_spans[0].innerHTML = mypass.create();
+
+      my_buttons[0].onclick = function(){
+      my_spans[0].innerHTML = mypass.create();
+      };
+
     </script>
   </body>
 </html>

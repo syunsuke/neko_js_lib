@@ -12,6 +12,9 @@
  NEKOLINUX.calendar
   カレンダーUIモジュール
 
+ NEKOLINUX.utils.password
+  パスワード生成ユティリティ
+
 \***********************************************************************/
 var NEKOLINUX = NEKOLINUX || {};
 
@@ -35,6 +38,78 @@ NEKOLINUX.namespace = function (ns_string){
     }
     return parent;
 };
+
+/*****************************************
+ パスワードユティリティ
+*****************************************/
+NEKOLINUX.namespace('NEKOLINUX.utils.password');
+NEKOLINUX.utils.password = (function () {
+    var default_char =
+	"abcdefghijklmnopqrstuvdxyz"
+      + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      + "0123456789";
+
+    /********************************************
+      _car_arrayはプライベート変数
+      パスワードに使用するキャラクタを格納
+　　　初期化でdefault_carを読み込み
+
+      TODO:クロージャーの場合、
+　　　　　set,getのメソッド書き換えると
+          迷子になる。
+　　　　　クロージャーにする必要がないのかもしれない。
+     ********************************************/
+    var _char_array = [];
+    _set_use_char(default_char);
+
+
+    /********************************************
+      オブジェクト定義
+     ********************************************/
+    var self = {
+	length: 8,
+	create: function(){
+	    return _create();
+	},
+
+	set_use_char: function(str){
+	    _set_use_char(str);
+	},
+
+	get_use_char: function(){
+	    return _get_use_char();
+	}
+    };
+    return self;
+
+    function _create(){
+	var pass_str = "";
+	var col,id;
+	var array_len = _char_array.length;
+
+	for ( col = 0; col < self.length; col += 1){
+	    id = Math.floor(Math.random()*array_len);
+	    pass_str = pass_str + _char_array[id];
+	}
+	return pass_str;
+    }
+
+    function _set_use_char(str){
+	_char_array = str.split('');
+    }
+
+    function _get_use_char(){
+	var i = 0, max = _char_array.length;
+	var result = "";
+	for (; i<max; i += 1){
+	    result = result + _char_array[i];
+	}
+	return result;
+    }
+
+}());
+
+
 
 /*****************************************
  イベントリスナーのユティリティ
@@ -75,9 +150,11 @@ NEKOLINUX.event_listener = (function () {
 }());
 
 
-/*****************************************
+/************************************************************
  カレンダーモジュール
-*****************************************/
+ http://gihyo.jp/dev/serial/01/crossbrowser-javascript/0024
+ を参考にした。
+*************************************************************/
 NEKOLINUX.namespace('NEKOLINUX.calendar');
 NEKOLINUX.calendar = (function () {
 
@@ -130,7 +207,6 @@ NEKOLINUX.calendar = (function () {
     function _create_table(){
 	var table_tag = document.createElement('table');
 	table_tag.id = "neko_calendar"
-//	table_tag.className = "neko_calendar"
 	return table_tag;
     }
 
